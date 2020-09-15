@@ -237,6 +237,17 @@ presubmits:
     optional: true
     command:
     - ./test/presubmit-link-check.sh
+  knative/docs:
+    - build-tests: true
+    - unit-tests: true
+    - integration-tests: true
+      needs-dind: true
+    - go-coverage: true
+    - custom-test: markdown-link-check
+      always-run: true
+      optional: true
+      command:
+        - ./test/presubmit-link-check.sh
   knative/pkg:
   - build-tests: true
   - unit-tests: true
@@ -663,6 +674,10 @@ periodics:
         memory: 12Gi
       limits:
         memory: 16Gi
+  knative-sandbox/eventing-github:
+  - continuous: true
+  - nightly: true
+  - auto-release: true
   knative/pkg:
   - continuous: true
   knative/caching:
